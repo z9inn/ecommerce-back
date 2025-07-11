@@ -90,6 +90,6 @@ public class AuthController {
 
         String email = jwtUtil.extractEmail(token);
         User user = userService.findByUsername(email);
-        return ResponseEntity.ok(Map.of("isAuthenticated", true, "user", user));
+        return ResponseEntity.ok(Map.of("isAuthenticated", true));
     }
 }
