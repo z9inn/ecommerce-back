@@ -23,7 +23,7 @@ public class SecurityConfig {
         return http.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login", "/api/register", "/api/refresh").permitAll()
+                        .requestMatchers("/api/login", "/api/signup", "/api/refresh").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)

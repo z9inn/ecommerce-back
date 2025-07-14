@@ -1,6 +1,6 @@
 package com.example.chatapp.repository;
 
-import com.example.chatapp.model.ChatMessage;
+import com.example.chatapp.model.entity.ChatMessage;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 

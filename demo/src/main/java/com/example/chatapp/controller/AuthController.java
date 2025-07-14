@@ -1,7 +1,7 @@
 package com.example.chatapp.controller;
 
-import com.example.chatapp.model.LoginResponse;
-import com.example.chatapp.model.User;
+import com.example.chatapp.model.dto.SignupRequest;
+import com.example.chatapp.model.entity.User;
 import com.example.chatapp.security.JwtUtil;
 import com.example.chatapp.service.UserService;
 import jakarta.servlet.http.Cookie;
@@ -27,34 +27,16 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @PostMapping("/signup")
+    public ResponseEntity<?> signup(@RequestBody SignupRequest request) {
+        userService.registerUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("status", 201, "message", "회원가입이 완료되었습니다"));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User request, HttpServletResponse response) {
-        String encoded = passwordEncoder.encode("test");
-        User user = userService.findByUsername(request.getEmail());
-        if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    Map.of("status", 401,
-                            "message", "이메일 또는 비밀번호가 틀렸습니다람쥐"
-                    )
-            );
-        }
-        System.out.println("✅ DB 비밀번호: " + user.getPassword());
-        System.out.println("✅ 매치 결과: " + passwordEncoder.matches(request.getPassword(), user.getPassword()));
-
-        String accessToken = jwtUtil.generateAccessToken(user);
-        String refreshToken = jwtUtil.generateRefreshToken(user);
-
-        Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-        refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setSecure(true);
-        refreshTokenCookie.setPath("/");
-        refreshTokenCookie.setMaxAge(7 * 24 * 60 * 60);
-
-        response.addCookie(refreshTokenCookie);
-
-
-        return ResponseEntity.ok((Map.of("accessToken", accessToken)));
+        Map<String, Object> token = userService.login(request.getEmail(), request.getPassword(), response);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/refresh")

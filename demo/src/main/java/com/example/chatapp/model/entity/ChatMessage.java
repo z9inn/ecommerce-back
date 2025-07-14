@@ -23,7 +23,7 @@
 //    }
 //}
 
-package com.example.chatapp.model;
+package com.example.chatapp.model.entity;
 
 import lombok.Data;
 

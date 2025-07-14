@@ -1,6 +1,6 @@
 package com.example.chatapp.controller;
 
-import com.example.chatapp.model.ChatMessage;
+import com.example.chatapp.model.entity.ChatMessage;
 import com.example.chatapp.service.ChatService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

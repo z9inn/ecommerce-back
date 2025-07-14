@@ -1,6 +1,6 @@
 package com.example.chatapp.security;
 
-import com.example.chatapp.model.User;
+import com.example.chatapp.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

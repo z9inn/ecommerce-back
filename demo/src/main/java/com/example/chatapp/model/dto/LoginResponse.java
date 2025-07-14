@@ -1,4 +1,4 @@
-package com.example.chatapp.model;
+package com.example.chatapp.model.dto;
 
 public class LoginResponse {
     private String token;

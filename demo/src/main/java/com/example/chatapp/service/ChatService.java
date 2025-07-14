@@ -1,6 +1,6 @@
 package com.example.chatapp.service;
 
-import com.example.chatapp.model.ChatMessage;
+import com.example.chatapp.model.entity.ChatMessage;
 import com.example.chatapp.repository.ChatMapper;
 import org.springframework.stereotype.Service;
 
